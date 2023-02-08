@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            font-family: sans-serif;
+        }
+        .controls span {
+            padding: 0 5px;
+        }
+        .controls select {
+            font-family: sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-family: sans-serif;
+        }
+        td {
+            padding: 5px 10px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+        td:nth-child(3) {
+            font-size: 0.8em;
+        }
+        td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(7) {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <span>League:</span>
+        <select id="league">
+            <option value="quantox">Quantox</option>
+            <option value="itcorporate">IT Corporate</option>
+        </select>
+        <span>Sort:</span>
+        <select id="sort">
+            <option value="points">Points</option>
+            <option value="avg">Avg Ind</option>
+            <option value="threes">3 points</option>
+            <option value="assists">Assists</option>
+            <option value="rebounds">Rebounds</option>
+        </select>
+    </div>
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Num</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Points</th>
+                <th>Avg<br>points</th>
+                <th>Total<br>points</th>
+                <th>Ind</th>
+                <th>Avg Ind</th>
+                <th>3 points</th>
+                <th>Assists</th>
+                <th>Steals</th>
+                <th colspan="3">Rebounds<br>D O T</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <tr><td style="border:none">Loading...</td></tr>
+        </tbody>
+    </table>
+    <script>
+        let playersData = {};
+
+        fetch('data.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                playersData = data;
+                appendData();
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+
+        function appendData() {
+            const league = document.getElementById("league").value;
+            const sortBy = document.getElementById("sort").value;
+
+            if(playersData[league] === undefined) {
+                console.log("Err: League not found - " + league);
+                return;
+            }
+
+            const players = Object.values(playersData[league]);
+
+            if(sortBy === "points") {
+                players.sort((a, b) => b.points - a.points);
+            }
+            else if(sortBy === "avg") {
+                players.sort((a, b) => b.avgInd - a.avgInd);
+            }
+            else if(sortBy === "threes") {
+                players.sort((a, b) => b.threes[0] === a.threes[0] ? a.threes[1] - b.threes[1] : b.threes[0] - a.threes[0]);
+            }
+            else if(sortBy === "assists") {
+                players.sort((a, b) => b.assists - a.assists);
+            }
+            else if(sortBy === "rebounds") {
+                players.sort((a, b) => (b.rebounds[0] + b.rebounds[1]) - (a.rebounds[0] + a.rebounds[1]));
+            }
+
+            const table = document.getElementById("table-body");
+            let content = '';
+            for(const player of players) {
+                content += `<tr><td>${player.num}</td>
+                            <td>${player.name}</td>
+                            <td>${player.team}</td>
+                            <td>${player.pointsList}</td>
+                            <td>${player.avgPoints}</td>
+                            <td>${player.points}</td>
+                            <td>${player.ind}</td>
+                            <td>${player.avgInd}</td>
+                            <td>${player.threes[0]}/${player.threes[1]} ${player.threes[1] === 0 ? '-' : Math.floor((player.threes[0]/player.threes[1])*100)}%</td>
+                            <td>${player.assists}</td>
+                            <td>${player.steals}</td>
+                            <td>${player.rebounds[0]}</td>
+                            <td>${player.rebounds[1]}</td>
+                            <td>${player.rebounds[0] + player.rebounds[1]}</td></tr>`;
+            }
+            table.innerHTML = content;
+        }
+
+        document.getElementById("sort").addEventListener("change", (e) => {
+            appendData();
+        });
+
+        document.getElementById("league").addEventListener("change", (e) => {
+            appendData();
+        });
+    </script>
+</body>
+</html>
