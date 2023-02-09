@@ -139,7 +139,11 @@
                 players.sort((a, b) => b.points - a.points);
             }
             else if(sortBy === "avg") {
-                players.sort((a, b) => a.indList.length < 3 ? 1 : b.avgInd - a.avgInd);
+                players.sort((a, b) => {
+                    if(b.indList.length < 3) return -1;
+                    if(a.indList.length < 3) return 1;
+                    return b.avgInd - a.avgInd;
+                });
             }
             else if(sortBy === "threes") {
                 players.sort((a, b) => b.threes[0] === a.threes[0] ? a.threes[1] - b.threes[1] : b.threes[0] - a.threes[0]);
