@@ -8,18 +8,21 @@
     <style>
         body {
             margin: 0 auto;
-            padding: 0 5px 10px 5px;
-            width: 1700px;
+            padding: 0 0 10px 0;
+            max-width: 1500px;
+            font-family: sans-serif;
         }
         .controls {
             display: flex;
             align-items: center;
-            font-family: sans-serif;
-            position: sticky;
+            position: fixed;
             top: 0;
             background-color: #fff;
             height: 60px;
-            padding: 0 5px;
+            padding: 0 10px;
+            width: 100%;
+            max-width: 1490px;
+            margin-left: -5px;
         }
         .controls span {
             padding: 0 5px;
@@ -29,8 +32,7 @@
         }
         table {
             border-collapse: collapse;
-            margin: 0 auto;
-            font-family: sans-serif;
+            margin: 60px auto 0;
             width: 100%;
         }
         table thead {
@@ -49,14 +51,13 @@
             border: 1px solid #000;
             text-align: center;
         }
-        td:nth-child(4) {
-            font-size: 0.8em;
-        }
         td:nth-child(1) {
             background-color: #222;
             color: #fff;
+            font-size: 0.8em;
+            font-weight: bold;
         }
-        td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(8) {
+        td:nth-child(3), td:nth-child(4), td:nth-child(7) {
             text-align: left;
         }
         tbody tr:nth-child(even) {
@@ -88,7 +89,6 @@
                 <th>#</th>
                 <th>Num</th>
                 <th>Name</th>
-                <th>Team</th>
                 <th>Points</th>
                 <th>Avg<br>points</th>
                 <th>Total<br>points</th>
@@ -129,6 +129,7 @@
             const sortBy = document.getElementById("sort").value;
 
             if(playersData[league] === undefined) {
+                alert("Err: League not found - " + league);
                 console.log("Err: League not found - " + league);
                 return;
             }
@@ -142,6 +143,7 @@
                 players.sort((a, b) => {
                     if(b.indList.length < 3) return -1;
                     if(a.indList.length < 3) return 1;
+                    //return (1 * b.avgInd + b.indList.length * 2) - (1 * a.avgInd + a.indList.length * 2);
                     return b.avgInd - a.avgInd;
                 });
             }
@@ -152,7 +154,7 @@
                 players.sort((a, b) => b.assists === a.assists ? 
                     b.avgAssists - a.avgAssists : b.assists - a.assists);
             }
-            if(sortBy === "steals") {
+            else if(sortBy === "steals") {
                 players.sort((a, b) => b.steals - a.steals);
             }
             else if(sortBy === "rebounds") {
@@ -169,8 +171,7 @@
                 content += `<tr>
                             <td>${i++}</td>
                             <td>${player.num}</td>
-                            <td>${player.name}</td>
-                            <td>${player.team}</td>
+                            <td><span style='font-weight:bold;'>${player.name}</span><br><span style='font-size:0.8em;'>${player.team}</span></td>
                             <td>${player.pointsList}</td>
                             <td>${player.avgPoints}</td>
                             <td>${player.points}</td>
