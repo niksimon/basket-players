@@ -16,11 +16,15 @@ body {
     max-width: 1490px;
     margin-left: -5px;
 }
+.controls div {
+    padding-right: 5px;
+}
 .controls span {
     padding: 0 5px;
 }
 .controls select {
     font-family: sans-serif;
+    padding: 5px;
 }
 table {
     border-collapse: collapse;
@@ -68,10 +72,10 @@ tbody tr:hover {
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
-        padding-top: 15px;
+        padding-top: 8px;
     }
     .controls div:nth-child(1) select {
-        width: 150px;
+        width: 130px;
     }
     thead {
         top: 80px;
