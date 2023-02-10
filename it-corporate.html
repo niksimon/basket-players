@@ -70,7 +70,11 @@
 </head>
 <body>
     <div class="controls">
-        <span>IT Corporate - Sort:</span>
+        <span>IT Corporate - Team:</span>
+        <select id="team">
+            <option value="all">All teams</option>
+        </select>
+        <span>Sort:</span>
         <select id="sort">
             <option value="points">Points</option>
             <option value="avg">Avg Ind</option>
@@ -109,6 +113,31 @@
     </table>
     <script>
         let playersData = {};
+        const teams = [
+                "ALLIED TESTING",
+                "BLACKROCK",
+                "BOSCH",
+                "CREATEQ",
+                "DIRAKO",
+                "FACTORYWW",
+                "GRID DYNAMICS",
+                "HOOLOOVOO",
+                "INTERVENTURE",
+                "MICROSOFT",
+                "MSG GLOBAL",
+                "ORION INNOVATION",
+                "PLAYSTUDIOS",
+                "QCERRIS",
+                "RT RK",
+                "TX SERVICES"
+                ];
+
+        for(const team of teams) {
+            const opt = document.createElement("option");
+            opt.value = team;
+            opt.innerText = team;
+            document.getElementById("team").appendChild(opt);
+        }
 
         fetch('it-corporate.json')
             .then(function (response) {
@@ -124,7 +153,12 @@
 
         function appendData() {
             const sortBy = document.getElementById("sort").value;
-            const players = Object.values(playersData);
+            const team = document.getElementById("team").value;
+            let players = Object.values(playersData);
+
+            if(team !== "all") {
+                players = players.filter(p => p.team === team);
+            }
 
             if(sortBy === "points") {
                 players.sort((a, b) => b.points - a.points);
@@ -184,6 +218,10 @@
         }
 
         document.getElementById("sort").addEventListener("change", (e) => {
+            appendData();
+        });
+
+        document.getElementById("team").addEventListener("change", (e) => {
             appendData();
         });
     </script>
