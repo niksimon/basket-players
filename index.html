@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
     <title>Basket players</title>
     <style>
         html, body {
@@ -15,22 +18,52 @@
         body {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-direction: column;
+            justify-content: space-evenly;
+            gap: 20%;
+            flex-direction: row;
             background-color: #111;
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            overflow: hidden;
         }
         a {
             text-decoration: none;
             font-family: sans-serif;
             color: #fff;
             font-weight: bold;
-            font-size: 3em;
-            padding: 15px;
+            font-size: 6em;
+            padding: 100px 50px;
+            text-transform: uppercase;
+            font-family: 'Teko', sans-serif;
+            text-shadow: 4px 4px 1px #000;
+            text-align: center;
+        }
+        @media screen and (max-width: 1919px) {
+            body {
+                gap: 30%;
+            }
+            a {
+                font-size: 4em;
+            }
+        }
+        @media screen and (max-width: 754px) {
+            a {
+                font-size: 3em;
+                padding: 10px 25px;
+                position: absolute;
+                bottom: 0;
+                text-shadow: 3px 3px 1px #000;
+            }
+            a:nth-child(1) {
+                bottom: 1.5em;
+            }
         }
     </style>
 </head>
     <body>
-        <a href="quantox.html">Quantox →</a>
-        <a href="it-corporate.html">IT Corporate →</a>
+        <a href="quantox.html">Quantox IT League</a>
+        <a href="it-corporate.html">IT Corporate League</a>
     </body>
 </html>
