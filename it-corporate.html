@@ -4,86 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>IT Corporate</title>
-    <style>
-        body {
-            margin: 0 auto;
-            padding: 0 0 10px 0;
-            max-width: 1500px;
-            font-family: sans-serif;
-        }
-        .controls {
-            display: flex;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            background-color: #fff;
-            height: 60px;
-            padding: 0 10px;
-            width: 100%;
-            max-width: 1490px;
-            margin-left: -5px;
-        }
-        .controls span {
-            padding: 0 5px;
-        }
-        .controls select {
-            font-family: sans-serif;
-        }
-        table {
-            border-collapse: collapse;
-            margin: 60px auto 0;
-            width: 100%;
-        }
-        table thead {
-            position: sticky;
-            background-color: #222;
-            top: 60px;
-            color: #fff;
-            border: 1px solid #000;
-            border-top: none;
-        }
-        th {
-            padding: 8px 0;
-        }
-        td {
-            padding: 5px 10px;
-            border: 1px solid #444;
-            text-align: center;
-        }
-        td:nth-child(1) {
-            background-color: #222;
-            color: #fff;
-            font-size: 0.8em;
-            font-weight: bold;
-        }
-        td:nth-child(3), td:nth-child(4), td:nth-child(7) {
-            text-align: left;
-        }
-        tbody tr:nth-child(even) {
-            background-color: #f5f5f5;
-        }
-        tbody tr:hover {
-            background-color: #d5eaee;
-        }
-    </style>
 </head>
 <body>
     <div class="controls">
-        <span>IT Corporate - Team:</span>
-        <select id="team">
-            <option value="all">All teams</option>
-        </select>
-        <span>Sort:</span>
-        <select id="sort">
-            <option value="points">Points</option>
-            <option value="avg">Avg Ind</option>
-            <option value="threes">3 points</option>
-            <option value="assists">Assists</option>
-            <option value="rebounds">Rebounds</option>
-            <option value="blocks">Blocks</option>
-            <option value="steals">Steals</option>
-        </select>
+        <div>
+            <span>IT Corporate - Team:</span>
+            <select id="team">
+                <option value="all">All teams</option>
+            </select>
+        </div>
+        <div>
+            <span>Sort:</span>
+            <select id="sort">
+                <option value="points">Points</option>
+                <option value="avg">Avg Ind</option>
+                <option value="threes">3 points</option>
+                <option value="assists">Assists</option>
+                <option value="rebounds">Rebounds</option>
+                <option value="blocks">Blocks</option>
+                <option value="steals">Steals</option>
+            </select>
+        </div>
     </div>
     <table id="table">
         <thead>
