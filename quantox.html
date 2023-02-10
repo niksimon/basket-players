@@ -104,7 +104,7 @@
             }
 
             if(sortBy === "points") {
-                players.sort((a, b) => b.points - a.points);
+                players.sort((a, b) => b.points === a.points ? b.avgPoints - a.avgPoints : b.points - a.points);
             }
             else if(sortBy === "avg") {
                 players.sort((a, b) => {
