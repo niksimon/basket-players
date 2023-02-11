@@ -25,7 +25,7 @@
             background-image: url('background.jpg');
             background-repeat: no-repeat;
             background-size: cover;
-            background-position: center center;
+            background-position: top center;
             overflow: hidden;
         }
         a {
@@ -51,10 +51,16 @@
         }
         @media screen and (max-width: 1919px) {
             a {
-                font-size: 5em;
+                font-size: 4em;
             }
         }
-        @media screen and (max-width: 754px) {
+        @media screen and (max-width: 1240px) {
+            a {
+                font-size: 2.5em;
+                text-shadow: 3px 3px 1px #000;
+            }
+        }
+        @media screen and (max-width: 640px) {
             a {
                 height: auto;
                 display: block;
@@ -66,7 +72,7 @@
                 text-shadow: 3px 3px 1px #000;
             }
             a:nth-child(1) {
-                bottom: 1.5em;
+                bottom: 1.8em;
             }
         }
     </style>
