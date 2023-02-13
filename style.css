@@ -1,7 +1,7 @@
 body {
     margin: 0 auto;
     padding: 0 0 10px 0;
-    max-width: 1500px;
+    max-width: 1800px;
     font-family: sans-serif;
 }
 .controls {
@@ -13,7 +13,7 @@ body {
     height: 60px;
     padding: 0 10px;
     width: 100%;
-    max-width: 1490px;
+    max-width: 1790px;
     margin-left: -5px;
 }
 .controls div {
