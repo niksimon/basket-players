@@ -11,16 +11,23 @@ body {
     top: 0;
     background-color: #fff;
     height: 60px;
-    padding: 0 10px;
+    padding: 0 20px;
     width: 100%;
     max-width: 1790px;
     margin-left: -5px;
 }
 .controls div {
+    line-height: 60px;
     padding-right: 5px;
 }
 .controls span {
     padding: 0 5px;
+}
+.controls-1 span:nth-child(1) {
+    padding-left: 0;
+}
+.controls span.league-dash {
+    padding: 0 5px 0 10px;
 }
 .controls select {
     font-family: sans-serif;
@@ -53,6 +60,10 @@ td:nth-child(1) {
     color: #fff;
     font-size: 0.8em;
     font-weight: bold;
+    width: 30px;
+}
+td:nth-child(2) {
+    width: 30px;
 }
 td:nth-child(3), td:nth-child(4), td:nth-child(7) {
     text-align: left;
@@ -63,21 +74,63 @@ tbody tr:nth-child(even) {
 tbody tr:hover {
     background-color: #d5eaee;
 }
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 840px) {
     table {
-        margin-top: 80px;
+        margin-top: 120px;
     }
     .controls {
-        height: 80px;
+        height: 120px;
         flex-direction: column;
         align-items: flex-start;
-        gap: 5px;
+        gap: 10px;
         padding-top: 8px;
+        padding-left: 10px;
     }
-    .controls div:nth-child(1) select {
-        width: 130px;
+    .controls div {
+        line-height: 20px;
+    }
+    .league-dash {
+        display: none;
+    }
+    .controls div:nth-child(1) {
+        padding-left: 5px;
+    }
+    .controls-1, .controls-2 {
+        width: 100%;
+    }
+    .controls-1 select, .controls-2 select {
+        width: 200px;
+    }
+    .controls-1 span:nth-child(1) {
+        padding-left: 5px;
+    }
+    .controls-2 span {
+        padding-right: 20px;
+    }
+    .controls-2 span:nth-of-type(2) {
+        padding-right: 23px;
     }
     thead {
-        top: 80px;
+        top: 120px;
+    }
+}
+@media only screen and (max-width: 580px) {
+    .controls-1 select, .controls-2 select {
+        width: 140px;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .controls-1 select, .controls-2 select {
+        width: 120px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .controls-1 select, .controls-2 select {
+        width: 80px;
+    }
+}
+@media only screen and (max-width: 319px) {
+    .controls-1 select, .controls-2 select {
+        width: 40px;
     }
 }

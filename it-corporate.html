@@ -4,19 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IT League Basketball Stats">
+    <meta name="keywords" content="IT, basketball, league, stats, statistics, quantox, corporate">
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="stylesheet" href="style.css">
     <title>IT Corporate League</title>
 </head>
 <body>
     <div class="controls">
-        <div>
-            <span>IT Corporate - Team:</span>
+        <div><b>IT Corporate</b><span class="league-dash">-</span></div>
+        <div class="controls-1">
+            <span>Season:</span>
+            <select id="season">
+                <option value="6">6</option>
+            </select>
+            <span>Round:</span>
+            <select id="round">
+                <option value="all">All rounds</option>
+            </select>
+        </div>
+        <div class="controls-2">
+            <span>Team:</span>
             <select id="team">
                 <option value="all">All teams</option>
             </select>
-        </div>
-        <div>
             <span>Sort:</span>
             <select id="sort">
                 <option value="points">Points</option>
@@ -30,7 +41,7 @@
         </div>
     </div>
     <table id="table">
-        <thead>
+        <thead id="table-head">
             <tr>
                 <th>#</th>
                 <th>Num</th>
@@ -56,7 +67,11 @@
         </tbody>
     </table>
     <script>
-        let playersData = {};
+        let allData = {};
+        let roundData = {};
+        let currentData = {};
+        const league = 'it-corporate';
+        const rounds = 10;
         const teams = [
                 "ALLIED TESTING",
                 "BLACKROCK",
@@ -76,6 +91,13 @@
                 "TX SERVICES"
                 ];
 
+        for(let i = 1; i <= rounds; i++) {
+            const opt = document.createElement("option");
+            opt.value = i;
+            opt.innerText = i;
+            document.getElementById("round").appendChild(opt);
+        }        
+
         for(const team of teams) {
             const opt = document.createElement("option");
             opt.value = team;
@@ -83,12 +105,13 @@
             document.getElementById("team").appendChild(opt);
         }
 
-        fetch('it-corporate.json')
+        fetch(`${league}/season6/data.json`)
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
-                playersData = data;
+                allData = data;
+                currentData = allData;
                 appendData();
             })
             .catch(function (err) {
@@ -96,9 +119,10 @@
             });
 
         function appendData() {
-            const sortBy = document.getElementById("sort").value;
+            const round = document.getElementById("round").value;
             const team = document.getElementById("team").value;
-            let players = Object.values(playersData);
+            const sortBy = document.getElementById("sort").value;
+            let players = Object.values(currentData);
 
             if(team !== "all") {
                 players = players.filter(p => p.team === team);
@@ -132,11 +156,35 @@
                 players.sort((a, b) => b.blocks - a.blocks);
             }
 
-            const table = document.getElementById("table-body");
+            const table = document.getElementById("table");
+            const tableBody = document.getElementById("table-body");
+            const tableHead = document.getElementById("table-head");
+
             let content = '';
             let i = 1;
-            for(const player of players) {
-                content += `<tr>
+
+            if(round === "all") {
+                tableHead.innerHTML = `<tr>
+                                <th>#</th>
+                                <th>Num</th>
+                                <th>Name</th>
+                                <th>Points</th>
+                                <th>Avg<br>points</th>
+                                <th>Total<br>points</th>
+                                <th>Ind</th>
+                                <th>Avg<br>Ind</th>
+                                <th>3 points</th>
+                                <th>Assists</th>
+                                <th>Avg<br>Assists</th>
+                                <th>Steals</th>
+                                <th>Avg<br>Steals</th>
+                                <th colspan="3">Rebounds<br>D O T</th>
+                                <th>Avg<br>Rebounds</th>
+                                <th>Blocks</th>
+                                <th>Avg<br>Blocks</th>
+                            </tr>`;
+                for(const player of players) {
+                    content += `<tr>
                             <td>${i++}</td>
                             <td>${player.num}</td>
                             <td><span style='font-weight:bold;'>${player.name}</span><br><span style='font-size:0.8em;'>${player.team}</span></td>
@@ -157,15 +205,75 @@
                             <td>${player.blocks}</td>
                             <td>${player.avgBlocks}</td>
                             </tr>`;
+                }
             }
-            table.innerHTML = content;
+            else {
+                tableHead.innerHTML = `<tr>
+                                <th>#</th>
+                                <th>Num</th>
+                                <th>Name</th>
+                                <th>Points</th>
+                                <th>Ind</th>
+                                <th>3 points</th>
+                                <th>Assists</th>
+                                <th>Steals</th>
+                                <th colspan="3">Rebounds<br>D O T</th>
+                                <th>Blocks</th>
+                            </tr>`;
+                for(const player of players) {
+                    content += `<tr>
+                            <td>${i++}</td>
+                            <td>${player.num}</td>
+                            <td><span style='font-weight:bold;'>${player.name}</span><br><span style='font-size:0.8em;'>${player.team}</span></td>
+                            <td>${player.points}</td>
+                            <td>${player.avgInd}</td>
+                            <td>${player.threes[0]}/${player.threes[1]} ${player.threes[1] === 0 ? '0' : Math.floor((player.threes[0]/player.threes[1])*100)}%</td>
+                            <td>${player.assists}</td>
+                            <td>${player.steals}</td>
+                            <td>${player.rebounds[0]}</td>
+                            <td>${player.rebounds[1]}</td>
+                            <td>${player.rebounds[0] + player.rebounds[1]}</td>
+                            <td>${player.blocks}</td>
+                            </tr>`;
+                }
+            }
+
+            tableBody.innerHTML = content;
         }
 
-        document.getElementById("sort").addEventListener("change", (e) => {
-            appendData();
+        document.getElementById("round").addEventListener("change", (e) => {
+            const round = e.target.value;
+            if(round !== "all") {
+                if(roundData[round] === undefined) {
+                    fetch(`${league}/season6/${round}.json`)
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            currentData = data;
+                            roundData[round] = data;
+                            appendData();
+                        })
+                        .catch(function (err) {
+                            console.log('error: ' + err);
+                        });
+                }
+                else {
+                    currentData = roundData[round];
+                    appendData();
+                }
+            }
+            else {
+                currentData = allData;
+                appendData();
+            }
         });
 
         document.getElementById("team").addEventListener("change", (e) => {
+            appendData();
+        });
+
+        document.getElementById("sort").addEventListener("change", (e) => {
             appendData();
         });
     </script>
