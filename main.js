@@ -45,9 +45,6 @@ function appendData() {
     else if(sortBy === "numAsc") {
         players.sort((a, b) => a.num === b.num ? a.name.localeCompare(b.name) : a.num - b.num);
     }
-    else if(sortBy === "numDesc") {
-        players.sort((a, b) => a.num === b.num ? a.name.localeCompare(b.name) : b.num - a.num);
-    }
     else if(sortBy === "avgInd") {
         players.sort((a, b) => {
             if(round === "all") {
@@ -73,6 +70,9 @@ function appendData() {
     }
     else if(sortBy === "blocks") {
         players.sort((a, b) => b.blocks === a.blocks ? b.avgBlocks - a.avgBlocks : b.blocks - a.blocks);
+    }
+    else if(sortBy === "attendance") {
+        players.sort((a, b) => b.gamesCount === a.gamesCount ? a.num - b.num : b.gamesCount - a.gamesCount);
     }
 
     const tableBody = document.getElementById("table-body");
