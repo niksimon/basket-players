@@ -161,7 +161,7 @@ tbody tr:hover, tbody tr:hover td:nth-child(2), tbody tr:hover td:nth-child(3) {
     th, td:nth-child(1), td:nth-child(2) {
         font-size: 0.8em;
     }
-    td:nth-child(3) {
+    th:nth-child(3), td:nth-child(3) {
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         clip-path: inset(0px -30px 0px 0px);
     }
