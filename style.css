@@ -5,7 +5,9 @@
 	margin: 0;
 	padding: 0;
 }
-
+button, input, optgroup, select, textarea {
+    font-family: inherit;
+}
 html, body {
 	height: 100%;
 }
@@ -13,7 +15,7 @@ body {
     margin: 0 auto;
     padding: 0 0 10px 0;
     max-width: 1800px;
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 .controls {
     display: flex;
@@ -24,7 +26,6 @@ body {
     height: 60px;
     padding: 0 20px;
     width: 101%;
-    margin-left: -5px;
     z-index: 999;
 }
 .controls div {
@@ -34,6 +35,10 @@ body {
 }
 .controls span {
     padding: 0 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #111;
+    font-size: 0.9em;
 }
 .controls-1 span:nth-child(1) {
     padding-left: 0;
@@ -42,9 +47,18 @@ body {
     padding: 0 5px 0 10px;
 }
 .controls select {
-    font-family: sans-serif;
     padding: 5px;
     min-width: 50px;
+    border: none;
+    background-color: #e7e7eb;
+}
+.controls select option {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+    color: #000;
+}
+.controls-league-name {
+    margin-top: -2px;
 }
 table {
     border-collapse: separate;
@@ -117,52 +131,51 @@ tbody tr:hover, tbody tr:hover td:nth-child(2), tbody tr:hover td:nth-child(3) {
         padding: 0 0 10px 0;
     }
     table {
-        margin-top: 120px;
+        margin-top: 135px;
     }
     .controls {
-        height: 120px;
+        height: 135px;
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
-        padding-top: 8px;
-        padding-left: 10px;
+        gap: 6px;
+        padding: 8px 15px 0 15px;
         width: 101%;
     }
     .controls div {
-        line-height: 20px;
+        width: 100%;
+        align-items: flex-start;
     }
     .league-dash {
         display: none;
     }
     .controls div:nth-child(1) b {
-        padding-left: 5px;
+        padding-left: 12px;
     }
     .controls-1, .controls-2 {
         width: 100%;
     }
     .controls-1 div, .controls-2 div {
         width: 50%;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        padding: 0 10px;
     }
     .controls-1 select, .controls-2 select {
-        flex-grow: 100;
+        width: 100%;
     }
-    .controls-1 span:nth-child(1) {
-        padding-left: 5px;
-    }
-    .controls-2 div:nth-child(1) span {
-        padding-right: 20px;
-    }
-    .controls-2 div:nth-child(2) span {
-        padding-right: 23px;
+    .controls-1 span, .controls-2 span {
+        font-size: 0.8em;
+        padding: 0;
     }
     thead {
-        top: 120px;
+        top: 135px;
     }
     th, td:nth-child(1), td:nth-child(2) {
         font-size: 0.8em;
     }
-    td:nth-child(3) {
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    /* td:nth-child(3), th:nth-child(3) {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
         clip-path: inset(0px -30px 0px 0px);
-    }
+    } */
 }
