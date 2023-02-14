@@ -63,20 +63,18 @@ function appendData() {
         players.sort((a, b) => b.threes[0] === a.threes[0] ? a.threes[1] - b.threes[1] : b.threes[0] - a.threes[0]);
     }
     else if(sortBy === "assists") {
-        players.sort((a, b) => b.assists === a.assists ? 
-            b.avgAssists - a.avgAssists : b.assists - a.assists);
+        players.sort((a, b) => b.assists === a.assists ? b.avgAssists - a.avgAssists : b.assists - a.assists);
     }
     else if(sortBy === "steals") {
-        players.sort((a, b) => b.steals - a.steals);
+        players.sort((a, b) => b.steals === a.steals ? b.avgSteals - a.avgSteals : b.steals - a.steals);
     }
     else if(sortBy === "rebounds") {
-        players.sort((a, b) => (b.rebounds[0] + b.rebounds[1]) - (a.rebounds[0] + a.rebounds[1]));
+        players.sort((a, b) => (b.rebounds[0] + b.rebounds[1]) === (a.rebounds[0] + a.rebounds[1]) ? b.avgRebounds - a.avgRebounds : (b.rebounds[0] + b.rebounds[1]) - (a.rebounds[0] + a.rebounds[1]));
     }
     else if(sortBy === "blocks") {
-        players.sort((a, b) => b.blocks - a.blocks);
+        players.sort((a, b) => b.blocks === a.blocks ? b.avgBlocks - a.avgBlocks : b.blocks - a.blocks);
     }
 
-    const table = document.getElementById("table");
     const tableBody = document.getElementById("table-body");
     const tableHead = document.getElementById("table-head");
 
