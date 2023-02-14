@@ -1,3 +1,14 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100%;
+}
 body {
     margin: 0 auto;
     padding: 0 0 10px 0;
@@ -12,13 +23,14 @@ body {
     background-color: #fff;
     height: 60px;
     padding: 0 20px;
-    width: 100%;
-    max-width: 1790px;
+    width: 101%;
     margin-left: -5px;
+    z-index: 999;
 }
 .controls div {
-    line-height: 60px;
     padding-right: 5px;
+    display: flex;
+    align-items: center;
 }
 .controls span {
     padding: 0 5px;
@@ -32,49 +44,78 @@ body {
 .controls select {
     font-family: sans-serif;
     padding: 5px;
+    min-width: 50px;
 }
 table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 60px auto 0;
     width: 100%;
+    overflow-x: scroll;
 }
 thead {
     position: sticky;
-    background-color: #222;
+    background-color: #122577;
     top: 60px;
     color: #fff;
     border-top: none;
+    z-index: 990;
 }
 th {
     padding: 8px 0;
 }
 td {
     padding: 5px 10px;
-    border: 1px solid #444;
+    border-right: 1px solid #444;
+    border-bottom: 1px solid #444;
     text-align: center;
 }
 td:nth-child(1) {
-    background-color: #222;
-    border-left: none;
-    border-top: none;
+    background-color: #122577;
+    border: none;
     color: #fff;
     font-size: 0.8em;
     font-weight: bold;
-    width: 30px;
+    width: 35px;
 }
-td:nth-child(2) {
-    width: 30px;
+td:nth-child(1), td:nth-child(2) {
+    width:35px; 
+    max-width:35px;
+    min-width:35px;
+    padding: 0;
 }
-td:nth-child(3), td:nth-child(4), td:nth-child(7) {
-    text-align: left;
+td:nth-child(1), td:nth-child(2), td:nth-child(3), th:nth-child(1), th:nth-child(2), th:nth-child(3) {
+    position: sticky;
+}
+th:nth-child(1), th:nth-child(2), th:nth-child(3) {
+    background-color: #122577;
+    top: 0;
+}
+td:nth-child(1), th:nth-child(1) {
+    left: 0;
+}
+td:nth-child(2), th:nth-child(2) {
+    left: 35px;
+}
+td:nth-child(3), th:nth-child(3) {
+    left: 70px;
+}
+tbody tr:nth-child(even) td:nth-child(2), tbody tr:nth-child(even) td:nth-child(3) {
+    background-color: #f5f5f5;
+}
+tbody tr:nth-child(odd) td:nth-child(2), tbody tr:nth-child(odd) td:nth-child(3) {
+    background-color: #fff;
 }
 tbody tr:nth-child(even) {
     background-color: #f5f5f5;
 }
-tbody tr:hover {
-    background-color: #d5eaee;
+tbody tr:hover, tbody tr:hover td:nth-child(2), tbody tr:hover td:nth-child(3) {
+    background-color: #dfe7f1;
 }
-@media only screen and (max-width: 840px) {
+@media only screen and (max-width: 920px) {
+    body {
+        padding: 0 0 10px 0;
+    }
     table {
         margin-top: 120px;
     }
@@ -85,6 +126,7 @@ tbody tr:hover {
         gap: 10px;
         padding-top: 8px;
         padding-left: 10px;
+        width: 101%;
     }
     .controls div {
         line-height: 20px;
@@ -92,45 +134,34 @@ tbody tr:hover {
     .league-dash {
         display: none;
     }
-    .controls div:nth-child(1) {
+    .controls div:nth-child(1) b {
         padding-left: 5px;
     }
     .controls-1, .controls-2 {
         width: 100%;
     }
+    .controls-1 div, .controls-2 div {
+        width: 50%;
+    }
     .controls-1 select, .controls-2 select {
-        width: 200px;
+        flex-grow: 100;
     }
     .controls-1 span:nth-child(1) {
         padding-left: 5px;
     }
-    .controls-2 span {
+    .controls-2 div:nth-child(1) span {
         padding-right: 20px;
     }
-    .controls-2 span:nth-of-type(2) {
+    .controls-2 div:nth-child(2) span {
         padding-right: 23px;
     }
     thead {
         top: 120px;
     }
-}
-@media only screen and (max-width: 580px) {
-    .controls-1 select, .controls-2 select {
-        width: 140px;
+    th, td:nth-child(1), td:nth-child(2) {
+        font-size: 0.8em;
     }
-}
-@media only screen and (max-width: 480px) {
-    .controls-1 select, .controls-2 select {
-        width: 120px;
-    }
-}
-@media only screen and (max-width: 400px) {
-    .controls-1 select, .controls-2 select {
-        width: 80px;
-    }
-}
-@media only screen and (max-width: 319px) {
-    .controls-1 select, .controls-2 select {
-        width: 40px;
+    td:nth-child(3) {
+        width: 100px;
     }
 }
