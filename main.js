@@ -43,7 +43,7 @@ function appendData() {
         players.sort((a, b) => b.points === a.points ? b.avgPoints - a.avgPoints : b.points - a.points);
     }
     else if(sortBy === "numAsc") {
-        players.sort((a, b) => a.num === b.num ? a.name.localeCompare(b.name) : a.num - b.num);
+        players.sort((a, b) => +a.num === +b.num ? a.name.localeCompare(b.name) : +a.num - +b.num);
     }
     else if(sortBy === "avgInd") {
         players.sort((a, b) => {
