@@ -171,6 +171,7 @@ tbody tr:hover, tbody tr:hover td:nth-child(2), tbody tr:hover td:nth-child(3) {
 
   #checkboxes span {
     font-weight: normal;
+    user-select: none;
   }
   
   #checkboxes label:hover {

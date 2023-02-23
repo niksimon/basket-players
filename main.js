@@ -242,8 +242,9 @@ document.getElementById("checkboxes").addEventListener("click", (e) => {
     }
 });
 
-document.getElementById("uncheckAll").addEventListener("click", () => {
-    if(selectedRoundsCount === 0) {
+// select All rounds button
+document.getElementById("checkAll").addEventListener("click", () => {
+    if(selectedRoundsCount < rounds) {
         for(let i = 1; i <= rounds; i++) {
             document.getElementById(`round${i}`).checked = true;
         }
@@ -267,6 +268,7 @@ document.getElementById("sort").addEventListener("change", (e) => {
     appendData();
 });
 
+// close select checkboxes on click outside
 document.addEventListener('click', (e) => {
     const container = document.getElementById("multiselect");
     if (!container.contains(e.target)) {
