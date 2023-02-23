@@ -40,6 +40,9 @@ body {
 .controls-1 span:nth-child(1) {
     padding-left: 0;
 }
+.controls .controls-1 {
+    padding-right: 0;
+}
 .controls span.league-dash {
     padding: 0 5px 0 10px;
 }
@@ -123,6 +126,54 @@ tbody tr:nth-child(even) {
 tbody tr:hover, tbody tr:hover td:nth-child(2), tbody tr:hover td:nth-child(3) {
     background-color: #dfe7f1;
 }
+
+.multiselect {
+    
+    position: relative;
+    display: block !important;
+  }
+  
+  .selectBox {
+    position: relative;
+    display: block !important;
+  }
+  
+  .selectBox select {
+    width: 100px;
+    display: block !important;
+    z-index: -1;
+  }
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  #checkboxes {
+    display: none;
+    border: 1px #dadada solid;
+    background-color: #fff;
+    position: absolute;
+    width: 100px;
+    top: 25px;
+    padding: 0;
+  }
+  
+  #checkboxes label {
+    padding: 5px;
+    display: block;
+}
+
+  #checkboxes span {
+    font-weight: normal;
+  }
+  
+  #checkboxes label:hover {
+    background-color: #eee;
+  }
+
 @media only screen and (max-width: 920px) {
     body {
         padding: 0 0 10px 0;
@@ -151,7 +202,7 @@ tbody tr:hover, tbody tr:hover td:nth-child(2), tbody tr:hover td:nth-child(3) {
     .controls-1, .controls-2 {
         width: 100%;
     }
-    .controls-1 div, .controls-2 div {
+    .controls-1 > div, .controls-2 > div {
         width: 50%;
         display: flex;
         flex-direction: column;
@@ -170,6 +221,23 @@ tbody tr:hover, tbody tr:hover td:nth-child(2), tbody tr:hover td:nth-child(3) {
     }
     th, td:nth-child(1), td:nth-child(2) {
         font-size: 0.8em;
+    }
+    .multiselect, .selectBox, .selectBox select {
+        width: 100% !important;
+        padding-right: 8px !important;
+    }
+    .overSelect {
+        display: block !important;
+    }
+    .controls-2 > div:nth-child(2) {
+        padding-left: 12px;
+    }
+    #checkboxes {
+        width: 90%;
+        padding: 0;
+    }
+    #checkboxes span {
+        padding: 5px;
     }
     /* td:nth-child(3), th:nth-child(3) {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);

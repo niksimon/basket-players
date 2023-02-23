@@ -1,12 +1,21 @@
 let allData = {};
+let allRoundsData = {};
 let roundData = {};
 let currentData = {};
+let selectedRoundsCount = 0;
 
 for(let i = 1; i <= rounds; i++) {
-    const opt = document.createElement("option");
-    opt.value = i;
-    opt.innerText = i;
-    document.getElementById("round").appendChild(opt);
+    const label = document.createElement("label");
+    label.setAttribute("for", `round${i}`);
+    const checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.setAttribute("id", `round${i}`);
+    checkBox.setAttribute("value", i);
+    const span = document.createElement("span");
+    span.innerText = i;
+    label.appendChild(checkBox);
+    label.appendChild(span);
+    document.getElementById("checkboxes").appendChild(label);
 }
 
 for(const team of teams) {
@@ -16,12 +25,13 @@ for(const team of teams) {
     document.getElementById("team").appendChild(opt);
 }
 
-fetch(`${league}/season6/all.json`)
+fetch(`${league}/season6/all-data.json`)
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
-        allData = data;
+        allData = data.all;
+        allRoundsData = data.rounds;
         currentData = allData;
         appendData();
     })
@@ -30,7 +40,7 @@ fetch(`${league}/season6/all.json`)
     });
 
 function appendData() {
-    const round = document.getElementById("round").value;
+    let round = selectedRoundsCount === 1 ?  "one" : "all";
     const team = document.getElementById("team").value;
     const sortBy = document.getElementById("sort").value;
     let players = Object.values(currentData);     
@@ -161,33 +171,121 @@ function appendData() {
     tableBody.innerHTML = content;
 }
 
-document.getElementById("round").addEventListener("change", (e) => {
-    const round = e.target.value;
-    if(round !== "all") {
-        if(roundData[round] === undefined) {
-            fetch(`${league}/season6/${round}.json`)
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                    currentData = data;
-                    roundData[round] = data;
-                    appendData();
-                })
-                .catch(function (err) {
-                    console.log('error: ' + err);
-                });
+let expanded = false;
+
+document.getElementById("selectBox").addEventListener("click", () => {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+});
+
+document.getElementById("checkboxes").addEventListener("click", (e) => {
+    if(e.target.tagName.toLowerCase() === 'input'){
+        let selectedRounds = [];
+        for(let i = 1; i <= rounds; i++) {
+            if(document.getElementById(`round${i}`).checked) {
+                selectedRounds.push(i);
+            }
+        }
+
+        if(selectedRounds.length === 0 || selectedRounds.length === rounds) {
+            currentData = allData;
         }
         else {
-            currentData = roundData[round];
-            appendData();
+            const newData = JSON.parse(JSON.stringify(allRoundsData[selectedRounds[0]]));
+            for(let i = 1; i < selectedRounds.length; i++) {
+                const currentRound = allRoundsData[selectedRounds[i]];
+                for(const player in currentRound) {
+                    if(newData[player] === undefined) {
+                        newData[player] = JSON.parse(JSON.stringify(currentRound[player]));
+                    }
+                    else {
+                        const points = currentRound[player].points;
+                        const ind = currentRound[player].avgInd;
+                        const threes = [currentRound[player].threes[0], currentRound[player].threes[1]];
+                        const assists = currentRound[player].assists;
+                        const steals = currentRound[player].steals;
+                        const rebounds = [currentRound[player].rebounds[0], currentRound[player].rebounds[1]];
+                        const blocks = currentRound[player].blocks;
+
+                        newData[player].gamesCount++;
+                        newData[player].pointsList.push(points);
+                        newData[player].points += points;
+                        newData[player].avgPoints = (newData[player].points / newData[player].gamesCount).toFixed(2);
+                        newData[player].indList.push(ind);
+                        newData[player].avgInd = (newData[player].indList.reduce((a, c) => a + c, 0) / newData[player].gamesCount).toFixed(2);
+                        newData[player].threes[0] += threes[0];
+                        newData[player].threes[1] += threes[1];
+                        newData[player].assistsList.push(assists);
+                        newData[player].assists += assists;
+                        newData[player].avgAssists = (newData[player].assists / newData[player].gamesCount).toFixed(2);
+                        newData[player].stealsList.push(steals);
+                        newData[player].steals += steals;
+                        newData[player].avgSteals = (newData[player].steals / newData[player].gamesCount).toFixed(2);
+                        newData[player].rebounds[0] += rebounds[0];
+                        newData[player].rebounds[1] += rebounds[1];
+                        newData[player].avgRebounds = ((newData[player].rebounds[0]+newData[player].rebounds[1])/ newData[player].gamesCount).toFixed(2);
+                        newData[player].blocks += blocks;
+                        newData[player].avgBlocks = (newData[player].blocks / newData[player].gamesCount).toFixed(2);
+                    }
+                }
+            }
+            currentData = newData;
         }
-    }
-    else {
-        currentData = allData;
+        selectedRoundsCount = selectedRounds.length;
         appendData();
     }
 });
+
+document.getElementById("uncheckAll").addEventListener("click", () => {
+    if(selectedRoundsCount === 0) {
+        for(let i = 1; i <= rounds; i++) {
+            document.getElementById(`round${i}`).checked = true;
+        }
+        selectedRoundsCount = rounds;
+    }
+    else {
+        for(let i = 1; i <= rounds; i++) {
+            document.getElementById(`round${i}`).checked = false;
+        }
+        selectedRoundsCount = 0;
+    }
+    currentData = allData;
+    appendData();
+});
+
+// document.getElementById("round").addEventListener("change", (e) => {
+//     const round = e.target.value;
+//     if(round !== "all") {
+//         if(roundData[round] === undefined) {
+//             fetch(`${league}/season6/${round}.json`)
+//                 .then(function (response) {
+//                     return response.json();
+//                 })
+//                 .then(function (data) {
+//                     currentData = data;
+//                     roundData[round] = data;
+//                     appendData();
+//                 })
+//                 .catch(function (err) {
+//                     console.log('error: ' + err);
+//                 });
+//         }
+//         else {
+//             currentData = roundData[round];
+//             appendData();
+//         }
+//     }
+//     else {
+//         currentData = allData;
+//         appendData();
+//     }
+// });
 
 document.getElementById("team").addEventListener("change", (e) => {
     appendData();

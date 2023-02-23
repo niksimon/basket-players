@@ -1,0 +1,7 @@
+"NCR_MILOS_MILIDRAGOVIC":{"team":"NCR","num":10,"name":"Milos Milidragovic","pointsList":[15],"points":15,"avgPoints":15,"indList":[31],"avgInd":31,"threes":[0,1],"assistsList":[5],"assists":5,"avgAssists":5,"stealsList":[0],"steals":0,"avgSteals":0,"rebounds":[12,3],"avgRebounds":15,"blocks":2,"avgBlocks":2,"gamesCount":1},
+
+10 Milos MIlidragovic 15 28:34 31 1/3 33% 7/9 78% 0/1 0% 7/10 70% 8/12 67% 5 0 3 12 3 15 1 4 1 2 0 23
+
+Lalatovic A.
+Sparic B.
+Momcilovic A.

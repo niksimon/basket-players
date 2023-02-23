@@ -1,6 +1,6 @@
-suspended-players.txt
 background.old.jpg
 background-mobile.old.jpg
 favicon.old.png
 todo.txt
-parser
+parser/script.js
+parser/mobile_parser
