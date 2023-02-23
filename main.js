@@ -259,6 +259,22 @@ document.getElementById("uncheckAll").addEventListener("click", () => {
     appendData();
 });
 
+document.getElementById("team").addEventListener("change", (e) => {
+    appendData();
+});
+
+document.getElementById("sort").addEventListener("change", (e) => {
+    appendData();
+});
+
+document.addEventListener('click', (e) => {
+    const container = document.getElementById("multiselect");
+    if (!container.contains(e.target)) {
+        document.getElementById("checkboxes").style.display = 'none';
+        multiSelectCheckboxesVisible = false;
+    }
+});
+
 // document.getElementById("round").addEventListener("change", (e) => {
 //     const round = e.target.value;
 //     if(round !== "all") {
@@ -286,19 +302,3 @@ document.getElementById("uncheckAll").addEventListener("click", () => {
 //         appendData();
 //     }
 // });
-
-document.getElementById("team").addEventListener("change", (e) => {
-    appendData();
-});
-
-document.getElementById("sort").addEventListener("change", (e) => {
-    appendData();
-});
-
-document.addEventListener('click', (e) => {
-    const container = document.getElementById("multiselect");
-    if (!container.contains(e.target)) {
-        document.getElementById("checkboxes").style.display = 'none';
-        multiSelectCheckboxesVisible = false;
-    }
-});
