@@ -171,16 +171,16 @@ function appendData() {
     tableBody.innerHTML = content;
 }
 
-let expanded = false;
+let multiSelectCheckboxesVisible = false;
 
 document.getElementById("selectBox").addEventListener("click", () => {
   var checkboxes = document.getElementById("checkboxes");
-  if (!expanded) {
+  if (!multiSelectCheckboxesVisible) {
     checkboxes.style.display = "block";
-    expanded = true;
+    multiSelectCheckboxesVisible = true;
   } else {
     checkboxes.style.display = "none";
-    expanded = false;
+    multiSelectCheckboxesVisible = false;
   }
 });
 
@@ -293,4 +293,12 @@ document.getElementById("team").addEventListener("change", (e) => {
 
 document.getElementById("sort").addEventListener("change", (e) => {
     appendData();
+});
+
+document.addEventListener('click', (e) => {
+    const container = document.getElementById("multiselect");
+    if (!container.contains(e.target)) {
+        document.getElementById("checkboxes").style.display = 'none';
+        multiSelectCheckboxesVisible = false;
+    }
 });
