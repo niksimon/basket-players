@@ -128,7 +128,6 @@ tbody tr:hover, tbody tr:hover td:nth-child(2), tbody tr:hover td:nth-child(3) {
 }
 
 .multiselect {
-    
     position: relative;
     display: block !important;
   }
@@ -164,6 +163,10 @@ tbody tr:hover, tbody tr:hover td:nth-child(2), tbody tr:hover td:nth-child(3) {
   #checkboxes label {
     padding: 5px;
     display: block;
+}
+
+#checkboxes input {
+    vertical-align: middle;
 }
 
   #checkboxes span {
