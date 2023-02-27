@@ -40,10 +40,9 @@ fetch(`${league}/season6/all-data.json`)
     });
 
 function appendData() {
-    let round = selectedRoundsCount === 1 ?  "one" : "all";
     const team = document.getElementById("team").value;
     const sortBy = document.getElementById("sort").value;
-    let players = Object.values(currentData);     
+    let players = Object.values(currentData);  
 
     if(team !== "all") {
         players = players.filter(p => p.team === team);
@@ -57,7 +56,7 @@ function appendData() {
     }
     else if(sortBy === "avgInd") {
         players.sort((a, b) => {
-            if(round === "all") {
+            if(selectedRoundsCount >= 7 || selectedRoundsCount === 0) {
                 if(b.indList.length < 3 && a.indList.length < 3) return b.avgInd - a.avgInd;
                 if(b.indList.length < 3) return -1;
                 if(a.indList.length < 3) return 1;
@@ -91,7 +90,7 @@ function appendData() {
     let content = '';
     let i = 1;
 
-    if(round === "all") {
+    if(selectedRoundsCount !== 1) {
         tableHead.innerHTML = `<tr>
                         <th>#</th>
                         <th>No.</th>
@@ -276,31 +275,3 @@ document.addEventListener('click', (e) => {
         multiSelectCheckboxesVisible = false;
     }
 });
-
-// document.getElementById("round").addEventListener("change", (e) => {
-//     const round = e.target.value;
-//     if(round !== "all") {
-//         if(roundData[round] === undefined) {
-//             fetch(`${league}/season6/${round}.json`)
-//                 .then(function (response) {
-//                     return response.json();
-//                 })
-//                 .then(function (data) {
-//                     currentData = data;
-//                     roundData[round] = data;
-//                     appendData();
-//                 })
-//                 .catch(function (err) {
-//                     console.log('error: ' + err);
-//                 });
-//         }
-//         else {
-//             currentData = roundData[round];
-//             appendData();
-//         }
-//     }
-//     else {
-//         currentData = allData;
-//         appendData();
-//     }
-// });
